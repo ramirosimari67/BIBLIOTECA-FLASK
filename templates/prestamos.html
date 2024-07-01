@@ -75,8 +75,8 @@
                     <td>{{ prestamo.id_prestamo }}</td>
                     <td>{{ prestamo.libro.titulo }} ({{ prestamo.libro.isbn }})</td>
                     <td>{{ prestamo.usuario.nombre }} ({{ prestamo.usuario.id_usuario }})</td>
-                    <td>{{ prestamo.fecha_prestamo.strftime('%Y-%m-%d') }}</td>
-                    <td>{{ prestamo.fecha_devolucion.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ prestamo.fecha_prestamo }}</td>
+                    <td>{{ prestamo.fecha_devolucion }}</td>
                 </tr>
             {% endfor %}
         </tbody>

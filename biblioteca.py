@@ -31,7 +31,7 @@ class Usuario:
             print("Este libro no esta disponible para prestamo.")
         
     def devolver_libro(self, libro):
-        if libro in self.libro_prestados:
+        if libro in self.libros_prestados:
             self.libros_prestados.remove(libro)
             libro.actualizar_disponibilidad(True)
             print(f"Libro {libro.titulo} devuelto por {self.nombre}.")
@@ -87,4 +87,3 @@ class Prestamo:
     def finalizar_prestamo(self):
         print(f"""Prestamo del libro {self.libro.titulo} finalizado.
               Debe ser devuelto por {self.usuario.nombre} antes de {self.fecha_devolucion}.""")
-        

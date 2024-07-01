@@ -51,13 +51,14 @@ def gestionar_prestamos():
         isbn = str(data['isbn'])
         usuario = next((u for u in biblioteca.usuarios if str(u.id_usuario) == id_usuario), None)
         libro = next((l for l in biblioteca.libros if str(l.isbn) == isbn), None)
+        
         if not usuario or not libro:
             return jsonify({'mensaje': 'Usuario o libro no encontrado'}), 404
-        
+
         if 'fecha_prestamo' in data:
             if not libro.disponible:
                 return jsonify({'mensaje': f'El libro "{libro.titulo}" ya está prestado'}), 400
-            
+
             fecha_prestamo = datetime.strptime(data['fecha_prestamo'], '%Y-%m-%d')
             fecha_devolucion = datetime.strptime(data['fecha_devolucion'], '%Y-%m-%d')
             usuario.prestar_libro(libro)
@@ -75,13 +76,14 @@ def gestionar_prestamos():
                              str(p.libro.isbn) == isbn and str(p.usuario.id_usuario) == id_usuario), None)
             if not prestamo:
                 return jsonify({'mensaje': f'El libro "{libro.titulo}" no está prestado por {usuario.nombre}'}), 400
-            
+
             usuario.devolver_libro(libro)
             biblioteca.prestamos.remove(prestamo)
             resultado = f"Libro {libro.titulo} devuelto por {usuario.nombre}"
+        
         guardar_datos()
         return jsonify({'mensaje': resultado})
-        
+
     elif request.method == 'GET':
         return render_template('prestamos.html', usuarios=biblioteca.usuarios, libros=biblioteca.libros,
                                prestamos=biblioteca.prestamos)
@@ -93,8 +95,19 @@ def guardar_datos():
             'usuarios': [usuario.__dict__ for usuario in biblioteca.usuarios],
             'prestamos': [{
                 'id_prestamo': prestamo.id_prestamo,
-                'libro': prestamo.libro.__dict__,
-                'usuario': prestamo.usuario.__dict__,
+                'libro': {
+                    'titulo': prestamo.libro.titulo,
+                    'autor': prestamo.libro.autor,
+                    'isbn': prestamo.libro.isbn,
+                    'editorial': prestamo.libro.editorial,
+                    'año_publicacion': prestamo.libro.año_publicacion,
+                    'disponible': prestamo.libro.disponible
+                },
+                'usuario': {
+                    'id_usuario': prestamo.usuario.id_usuario,
+                    'nombre': prestamo.usuario.nombre,
+                    'email': prestamo.usuario.email
+                },
                 'fecha_prestamo': prestamo.fecha_prestamo.strftime('%Y-%m-%d'),
                 'fecha_devolucion': prestamo.fecha_devolucion.strftime('%Y-%m-%d')
             } for prestamo in biblioteca.prestamos]
@@ -109,7 +122,7 @@ def cargar_datos():
                 datos = {}
             else:
                 datos = json.loads(contenido)
-            
+
             for libro_data in datos.get('libros', []):
                 disponible = libro_data.pop('disponible', True)
                 libro = Libro(**libro_data)
