@@ -1,0 +1,22 @@
+{
+    "libros": [
+        {
+            "autor": "v.e. shcwab",
+            "a\u00f1o_publicacion": "2020",
+            "disponible": true,
+            "editorial": "UMBRIEL",
+            "isbn": "09823423413",
+            "titulo": "La vida"
+        },
+        {
+            "autor": "v.e. shcwab",
+            "a\u00f1o_publicacion": "2020",
+            "disponible": true,
+            "editorial": "UMBRIEL",
+            "isbn": "09823423413",
+            "titulo": "La vida"
+        }
+    ],
+    "prestamos": [],
+    "usuarios": []
+}
