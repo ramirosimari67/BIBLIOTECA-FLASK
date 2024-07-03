@@ -6,27 +6,15 @@
             "isbn": "09823423413",
             "editorial": "UMBRIEL",
             "a\u00f1o_publicacion": "2020",
-            "disponible": false
-        },
-        {
-            "titulo": "la muerte",
-            "autor": "v.e. shcwab",
-            "isbn": "098234239503",
-            "editorial": "UMBRIEL",
-            "a\u00f1o_publicacion": "2020",
             "disponible": true
         }
     ],
     "usuarios": [
         {
             "id_usuario": "1",
-            "nombre": "Ramiro Simari",
-            "email": "ramirosimari26@gmail.com"
-        },
-        {
-            "id_usuario": "2",
             "nombre": "Rodrigo",
-            "email": "rodrigo@gmail.com"
+            "email": "rodrigo@gmail.com",
+            "libros_prestados": []
         }
     ],
     "prestamos": []

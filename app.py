@@ -133,7 +133,7 @@ def guardar_datos():
                 'fecha_devolucion': prestamo.fecha_devolucion.strftime('%Y-%m-%d')
             } for prestamo in biblioteca.prestamos]
         }
-        json.dump(datos, f, indent=4)
+        json.dump(datos, f, indent=4, default=str)
 
 # Función para cargar los datos de la biblioteca desde un archivo JSON
 def cargar_datos():
